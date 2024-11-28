@@ -51,7 +51,7 @@ app.post("/api/users/:_id/exercises", async (req, res) => {
 
 	if (data.date) {
 		const date = data.date.split("-");
-		const fullDate = new Date(date[0], date[1], date[2]);
+		const fullDate = new Date(date[0], date[1] - 1, date[2]);
 		exercise = new Exercise({
 			username: user.username,
 			description: data.description,
@@ -68,11 +68,11 @@ app.post("/api/users/:_id/exercises", async (req, res) => {
 
 	await exercise.save();
 	res.json({
-		_id: exercise._id,
-		username: exercise.username,
-		description: exercise.description,
-		duration: exercise.duration,
+		_id: user._id,
+		username: user.username,
 		date: exercise.date.toDateString(),
+		duration: exercise.duration,
+		description: exercise.description,
 	});
 });
 
